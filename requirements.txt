@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+razorpay
+sqlite3
+python-dotenv
+pydantic
