@@ -1,0 +1,65 @@
+<!doctype html>
+<html dir="ltr">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Razorpay Checkout</title>
+        <link rel="icon" href="data:;base64,="/>
+        <meta name="viewport" content="user-scalable=no,width=device-width,initial-scale=1,maximum-scale=1"/>
+    </head>
+    <body></body>
+    <script>
+        window.session_token = "DC221FF15C3DFD19C8E6990959F8CFE477FCB45D685D0B7F0CCE831220113FB6566CEC1E0CB09BFD60F7AF350A0C3A37286EE27A37B24A110CDB09C877BDBDDD11897902662BE0989BB91724AEA7F132C82A1B9DDBCE9C33EFABA1FEC487C586DE89AB70E87E0CDB";
+        try {
+            if (window.session_token.length > 14 && !location.search.match("session_token")) {
+                var tokenString = "session_token=" + window.session_token;
+                history.replaceState(null, "", location.search ? location.search + "&" + tokenString : "?" + tokenString)
+            }
+        } catch (e) {}
+        function markPerformance(e) {
+            performance && performance.mark && performance.mark(e)
+        }
+        function isModernBrowser() {
+            try {
+                return eval("Boolean?.(1)")
+            } catch (e) {}
+        }
+        function addScript(e, o) {
+            var t = document.createElement("script");
+            t.src = e.source + (o ? "?retry=1" : ""),
+            o ? t.onerror = e.onError : (t.crossOrigin = "anonymous",
+            t.onerror = function() {
+                addScript(e, !0)
+            }
+            ),
+            t.onload = e.onLoad,
+            document.head.appendChild(t)
+        }
+        function addAssets() {
+            markPerformance("add-asset-init");
+            var e = location.search.match("checkout_v2") && location.search.match(/build=(\w+)/)
+              , o = "https://checkout.razorpay.com/v1/";
+            addScript({
+                source: (e ? "https://checkout-static-next.razorpay.com/build/" + e[1] + "/" : o) + "v2-entry" + (isModernBrowser() ? ".modern.js" : ".js"),
+                onError: function() {
+                    const e = document.createElement("link");
+                    e.rel = "stylesheet",
+                    e.href = o + "css/checkout.css",
+                    document.head.appendChild(e),
+                    addScript({
+                        source: o + "checkout-frame.js"
+                    })
+                }
+            })
+        }
+        markPerformance("public-page-init");
+        var poly = [], polyScript;
+        document.currentScript || poly.push("document.currentScript", "Promise", "Object.entries", "String.prototype.startsWith"),
+        Object.fromEntries || poly.push("Object.fromEntries"),
+        window.Promise && !window.Promise.allSettled && poly.push("Promise.allSettled"),
+        (!window.Intl || window.navigator && window.navigator.userAgent && -1 !== window.navigator.userAgent.indexOf("KAIOS")) && poly.push("Intl.~locale.en|always"),
+        poly.length ? addScript({
+            source: "https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=" + encodeURIComponent(poly.join(",")),
+            onLoad: addAssets
+        }) : addAssets()
+    </script>
+</html>

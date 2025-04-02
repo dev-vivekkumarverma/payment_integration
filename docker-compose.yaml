@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    env_file:
+      - .env
+    volumes:
+      - backend_data:/app/data  # Persist SQLite database
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app_network
+
+volumes:
+  backend_data:
+
+networks:
+  app_network:
+    driver: bridge
