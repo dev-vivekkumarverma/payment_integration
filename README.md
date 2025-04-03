@@ -61,6 +61,11 @@ RAZORPAY_SECRET=your_razorpay_secret_here
 ```
 🔹 **Replace placeholders** with actual values.
 
+Also change the your host IP adderss in `donation.js` :
+```js
+const response = await fetch("http://192.168.29.154:8000/create_payment/", {  // replace this `http://192.168.29.154:8000` with your host of backend running machine
+
+```
 ---
 
 ## 🚀 Running the Project (Dockerized)
