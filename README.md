@@ -28,7 +28,7 @@ fastapi-razorpay-donation/
 │
 │── frontend/
 │   ├── index.html           # Main donation page
-│   ├── donate.js            # Handles form submission and Razorpay checkout
+│   ├── donation.js          # Handles form submission and Razorpay checkout
 │   ├── styles.css           # Styling
 │   ├── nginx.conf           # Nginx configuration
 │   ├── Dockerfile           # Dockerfile for frontend
