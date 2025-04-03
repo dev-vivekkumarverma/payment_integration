@@ -12,7 +12,7 @@ document.getElementById("donate-btn").addEventListener("click", async function (
     }
 
     // Update fetch URL to match Docker networking
-    const response = await fetch("http://localhost:8000/create_payment/", {  
+    const response = await fetch("http://192.168.29.154:8000/create_payment/", {  
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, amount, email, phone }),
@@ -34,7 +34,7 @@ document.getElementById("donate-btn").addEventListener("click", async function (
         description: "Donation Payment",
         order_id: order.id,
         handler: function (response) {
-            alert("Payment successful!");
+            // alert("Payment successful!");
             window.location.href = "/success"; // Redirect to success page
         },
         prefill: { name, email, contact: phone },
